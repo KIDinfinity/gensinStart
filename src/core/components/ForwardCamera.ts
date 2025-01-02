@@ -4,7 +4,7 @@ export const cameraCenter = new Vector3()
 
 let __delta = new Vector3();
 export class ForwardCamera extends Component {
-    public speed = new Vector3(0, 0, -88)
+    public speed = new Vector3(0, 0, -10)
     private shouldStop = false;
     private _zOffset = 0;
     onLoad(props: any): void {

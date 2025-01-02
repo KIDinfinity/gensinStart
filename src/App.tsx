@@ -13,7 +13,7 @@ export default ()=>{
             gameManager.reset();
             unscheduleDelay();
         }
-    },[])
+    },[gameManager.restartCount])
     return(
         <>
             <Canvas/>

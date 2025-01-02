@@ -11,7 +11,6 @@ class TaskManager {
     }
 
     public task(handle:Function | Promise<any>,{name="", weight=1}={}){
-        console.log("test_____")
         this._regist(weight);
         return this._resolve
             .then(()=> typeof handle === "function" ? handle() : handle)
@@ -53,12 +52,10 @@ class GameManager extends EventEmitter {
     }
 
     public restart(){
-        console.log("restart")
         window.location.href = '#'
     }
     
     public task(handle: Function | Promise<any>, props={}){
-        console.log("taskStart")
         //调用task，就是执行handle，最后将props={name="", weight=1}传给_finish
         return this.taskManager.task(handle, props);
     }
