@@ -32,12 +32,14 @@ export class StateMachine<T extends Object = Object>{
                 return false;
             }
         }
+        //加入队列
         this._states.push(newState);
         this._states.length == 1 && this._transferState();
         return true;
     }
 
     private _transferState() {
+        //1.先执行leave函数
         let leaveState = async () => {
             let handler = this._handlers[this._state];
             if (handler) {
@@ -45,6 +47,7 @@ export class StateMachine<T extends Object = Object>{
                 handler.active = false;
             }
         }
+        //2.执行enter函数
         let enterState = async () => {
             if (!this._states.length) return;
             let state = this._state = this._states.shift();
@@ -53,6 +56,7 @@ export class StateMachine<T extends Object = Object>{
                 handler.onEnter && await this._promise.then(() => handler.onEnter());
                 handler.active = true;
             }
+            //清空当前状态队列
             if (this._states.length > 0) {
                 this._transferState();
             }
@@ -70,6 +74,7 @@ export class StateMachine<T extends Object = Object>{
             console.warn(`state: ${state} duplicate registered`);
         }
         handler.SM = this;
+        //将machine的target变量，赋值给handler的target
         handler.target = this.target;
         this._handlers[state] = handler;
     }

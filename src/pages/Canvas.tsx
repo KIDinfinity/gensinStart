@@ -2,14 +2,13 @@ import React, { useEffect,useRef } from 'react';
 import './Canvas.less';
 import { gameManager } from '../core/GameManager';
 import { Game } from '../core/Game';
-
-let width = document.documentElement.clientWidth;
-let height = document.documentElement.clientHeight;
+import { useNavigate } from 'react-router-dom';
 
 export default ({...prop})=>{
+    const navigate = useNavigate();
     const canvasRef = useRef<HTMLCanvasElement>(null);
     useEffect(() => {
-        const game = new Game(canvasRef.current!);
+        const game = new Game(canvasRef.current!,navigate);
         return () => game.destroy();
       }, [gameManager.restartCount])
     return (

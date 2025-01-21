@@ -58,6 +58,7 @@ export class Road extends Component {
                     if (i % this.RoadUnitLength == 0 && this.hasStartGame) {
                         this.shouldStop = true;
                         this._showDoor(this.obj.children[i].position.z);
+                        console.log("emit showDoor")
                         gameManager.emit("showDoor", this.obj.children[i].position.z);
                     }
                     this.obj.children[i].position.sub(new Vector3(0, 0, this.zLength))
